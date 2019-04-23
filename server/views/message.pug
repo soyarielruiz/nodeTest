@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+      title Chat Application
+      link(rel="shortcut icon", href="#")
+      link(rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css")
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  body
+    #chat-app
+      #chat.has-text-centered
+        nav(class="navbar" role="navigation" aria-label="dropdown navigation")
+          div(class="navbar-item has-dropdown is-active")
+            a(class="navbar-link") Usuario
+              div(class="navbar-dropdown")
+                a(class="navbar-item", href="/actualizar/"+user_id) Perfil
+                a(class="navbar-item", href="/logout") Logout
+
+        section.hero.is-success
+          .hero-body
+            .container
+              h1.title Chat
+        section.section.chat-container
+          .container
+            .columns
+              .box.column.is-8.is-offset-2
+                .chat-messages.has-text-left
+                  ul#chat-messages
+                form(action="/send_message", method="post")
+                  .field.has-addons
+                    p.control
+                      input(type='text', class='input', value=user_name , id='nombre', readonly) 
+                    p.control.is-expanded
+                      input(type='text', class='input', placeholder='Escribe algo', id='mensaje')
+                    p.control
+                      input(type='submit', class='button is-success', value='Post')
+                    input(type='hidden', value=user_id, id='id_usuario')
+        footer
+          .container
+            .content
+              p
+                | Powered by
+                a(href='https://www.linkedin.com/in/ariel-ruiz/') &nbsp; Ariel Ruiz
+      script.
+        const socket = io();
+        $('form').submit(function() {
+          const name = $('#nombre').val();
+          const message = $('#mensaje').val();
+          const user_id = $('#id_usuario').val();
+
+          socket.emit('chatter', `${name} : ${message}`, message, user_id);
+          $('#mensaje').val('');
+          return false; 
+        });
+
+        socket.on('chatter', function(message) {
+          $('#chat-messages').append($('<li>').text(message));
+        });
