@@ -1,6 +1,6 @@
 version: '3'
 services:
-  app:
-    build: .
+  app_item:
+    build: app/
     ports:
-     - "3000:3000"
+     - "4005:4005"
