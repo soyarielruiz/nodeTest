@@ -1,20 +1,16 @@
 'use strict';
-module.exports = function(app) {
-  // Routes
-  // define the home page route
-  app.get('/', function(req, res) {
-    res.send('Servidor Levantado');
-  });
-  app.post('/api/item', (req, res, next)=>{
-    console.log('Request URL:', req.originalUrl);
-    next();
-  }, (req, res, next)=>{
-    console.log('Request Type:', req.method);
-    next();
-  }, (req, res)=>{
-    res.json({
-      status: true,
-      id: req.params.id,
-    });
-  });
-};
+const express = require('express');
+const route = express.Router();
+const validateItem = require('../modules/itemValidator');
+
+// Routes
+route.post('/api/item', async (req, res) => {
+  try {
+    const item = await validateItem(req.body);
+    res.json({id: item.id, name: item.name, keywords: item.keywords });
+  } catch (error) {
+    res.status(400).json({error: true, message: 'Invalid JSON' });
+  }
+});
+
+module.exports = route;
