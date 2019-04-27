@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD: qwerty123
       DATABASE_HOST: db
     volumes:
-      - ./data:/docker-entrypoint-initdb.d
+      - ./database-service/seeder.sql:/docker-entrypoint-initdb.d/dump.sql
   app:
     build: ./app
     restart: always
