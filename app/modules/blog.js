@@ -11,7 +11,6 @@ const Blog = function(blog) {
 Blog.addBlog = function addBlog(newBlog, result) {
   sql.query('INSERT INTO blog SET ?', newBlog, function(err, res) {
     if ( err ) {
-      console.log('Error: ', err);
       result(err, null);
     } else {
       result(null, res.insertId);
@@ -22,10 +21,11 @@ Blog.addBlog = function addBlog(newBlog, result) {
 Blog.getById= function getById( blogId, result) {
   sql.query(`SELECT * FROM blog WHERE id = ? `, blogId, function(err, res) {
     if (err) {
-      console.log('error: ', err);
       result(err, null);
     } else {
       result(null, res);
     }
   });
 };
+
+module.exports = Blog;

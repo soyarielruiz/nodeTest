@@ -39,7 +39,7 @@ route.get('/api/file/:filename', async (req, res) => {
 // Blog
 route.get('/api/blog/post/:id', async (req, res) => {
   try {
-    blogController.get;
+    blogController.get(req, res);
   } catch (error) {
     res.status(400).json({error: error.message});
   }
@@ -47,7 +47,7 @@ route.get('/api/blog/post/:id', async (req, res) => {
 
 route.post('/api/blog/post', async (req, res) => {
   try {
-    blogController.add;
+    blogController.add(req, res);
   } catch (error) {
     res.status(400).json({error: true, message: error.message});
   }

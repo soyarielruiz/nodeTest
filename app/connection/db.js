@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'qwerty123',
-  database: 'api_rest',
+  database: 'fizzmod',
 });
 
 connection.connect(function(err) {
