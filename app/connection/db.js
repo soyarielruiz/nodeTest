@@ -3,15 +3,20 @@ const mysql = require('mysql');
 
 // local mysql db connection
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'qwerty123',
-  database: 'fizzmod',
+  host: process.env.DATABASE_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+
 });
 
 connection.connect(function(err) {
+  console.log(process.env.MYSQL_PORT);
   if ( err ) {
-    throw err;
+    console.error('error connecting: ' + err.stack);
+    return process.exit(22);
+    // throw err;
   }
 });
 

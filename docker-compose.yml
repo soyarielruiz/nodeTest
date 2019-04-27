@@ -1,6 +1,30 @@
-version: '3'
+version: '2'
 services:
-  app_item:
-    build: app/
+  db:
+    build: ./database-service
+    #restart: on-failure
+    environment:
+      MYSQL_DATABASE: fizzmod
+      MYSQL_ROOT_PASSWORD: qwerty123
+      MYSQL_USER: user
+      MYSQL_PASSWORD: qwerty123
+      DATABASE_HOST: db
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+  app:
+    build: ./app
+    restart: always
+    environment:
+      DATABASE_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: fizzmod
+      MYSQL_USER: user
+      MYSQL_PASSWORD: qwerty123
     ports:
-     - "4005:4005"
+      - "4005:4005"
+    depends_on:
+        - db
+    volumes:
+      - ./app:/usr/src/app
+    links:
+      - db:db
