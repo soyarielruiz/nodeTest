@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
   console.log(process.env.MYSQL_PORT);
   if ( err ) {
-    console.error('error connecting: ' + err.stack);
+    console.error('error connecting: ' + err.message);
     return process.exit(22);
   } else {
     console.error('Conexion a la DB establecida.');
