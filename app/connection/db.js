@@ -16,7 +16,8 @@ connection.connect(function(err) {
   if ( err ) {
     console.error('error connecting: ' + err.stack);
     return process.exit(22);
-    // throw err;
+  } else {
+    console.error('Conexion a la DB establecida.');
   }
 });
 
