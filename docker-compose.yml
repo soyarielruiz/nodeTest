@@ -9,6 +9,8 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: qwerty123
       DATABASE_HOST: db
+    logging:
+      driver: none
     volumes:
       - ./database-service/seeder.sql:/docker-entrypoint-initdb.d/dump.sql
   app:
@@ -26,3 +28,5 @@ services:
         - db
     links:
       - db:db
+    logging:
+      driver: none

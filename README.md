@@ -7,7 +7,10 @@
 + `docker-compose build`
 
 >Al terminar de descargar lo necesario para la imagen de docker, se puede lanzar la api con:
-+ `docker-compose up`
++ `docker-compose up -d`
+
+>Para parar la API debe hacer
++ `docker rm -f tp_app_1 tp_db_1`
 
 >Para la validación de items se debe hacer un POST a `localhost:4005/api/item` <br/>
 >Para que devuelva el contenido de los archivos debe hacer un GET a `localhost:4005/api/{filename}` <br/>
